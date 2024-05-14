@@ -28,6 +28,6 @@ export default function PokemonCard(props: PokemonCardProps) {
 	)
 
     return (
-        <Card image={pokemon?.sprites.front_default as string} name={pokemon?.name as string} tags={pokemon?.types.map((type) => type.type.name)}/>
+        <Card image={pokemon?.sprites.other?.dream_world.front_default as string} name={pokemon?.name as string} tags={pokemon?.types.map((type) => type.type.name)}/>
     )
 }

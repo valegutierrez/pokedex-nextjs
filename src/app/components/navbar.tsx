@@ -37,9 +37,9 @@ export default function Navbar() {
       </div>
       {navBar && (
         <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-white to-pink-300 text-white md:hidden">
-          {links.map(({ name }) => (
+          {links.map(({ url, name }) => (
             <li className="px-4 cursor-pointer capitalize py-6 text-4xl" >
-              <Link onClick={() => setNavBar(!navBar)} href={name}>
+              <Link onClick={() => setNavBar(!navBar)} href={url}>
                 {name}
               </Link>
             </li>
