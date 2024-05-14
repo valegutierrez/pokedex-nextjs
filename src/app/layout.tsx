@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+// Importar tipografia Montserrat desde googlefonts
 import "./globals.css";
+// Importar estilos globales
 import Navbar from "./components/navbar";
 
 const monserrat = Montserrat({ subsets: ["latin"] });
+// Usar Montserrat a traves de todo el sitio
 
 export const metadata: Metadata = {
   title: "Pokedex with NextJS",
@@ -19,6 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={monserrat.className}>
         <Navbar />
+        {/* instancia de componente Navbar*/}
         {children}
       </body>
     </html>

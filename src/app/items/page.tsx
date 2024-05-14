@@ -7,29 +7,27 @@ import ItemCard from "@/app/components/itemcard";
 import Pagination from "@/app/components/pagination";
 import { useSearchParams } from "next/navigation";
 
-export default function Home({
-	searchParams,
-}: {
-	searchParams: { [key: string]: string | string[] | undefined}
-}) {
-	const [loading, setLoading] = useState(false); 
-	const [totalPages, setTotalPages] = useState<number>(1);
-	const [itemList, setItemList] = useState<NamedAPIResource[]>([]);
-	const page = searchParams['page'] ?? '1'; // default to 1
-	const per_page = searchParams['per_page'] ?? '12' // default to 12 entries
-	const start = (Number(page) - 1) * Number(per_page);
-  const end = start + Number(per_page);
+export default function Home() {
+
+	const searchParams = useSearchParams(); // parametros de busqueda para paginador, default vacio
+	const [loading, setLoading] = useState(false); // default falso prevenir mensaje de carga
+	const [totalPages, setTotalPages] = useState<number>(1); // default 1 porque debe haber al menos una pagina, total de paginas
+	const [itemList, setItemList] = useState<NamedAPIResource[]>([]); // listado que contiene una llave 'name' y una llave 'url'
+	const page = searchParams.get('page') ?? '1'; // default 1 porque debe haber al menos una pagina, pagina actual
+	const per_page = searchParams.get('per_page') ?? '12' // default a 12 entries, numero total de entries por pagina
+	const start = (Number(page) - 1) * Number(per_page); // offset del paginado
 
 	useEffect(() => {
-		setLoading(true);
-		itemClient.listItems(start, Number(per_page))
+		setLoading(true); // vuelve 'verdadero' la carga
+			itemClient.listItems(start, Number(per_page)) // define offset paginado y cantidad de items a mostrar
 			.then((data) => {
-				setItemList(data.results)
-				setTotalPages(Math.ceil(data.count/Number(per_page)))
-				setLoading(false);
+				setItemList(data.results) // entrega una lista de objetos
+				setTotalPages(Math.ceil(data.count/Number(per_page))) // divide la cantidad de items por la cantidad de elementos por pagina a mostrar y lo redondea al numero <= a este
+				setLoading(false); // desactiva la carga una vez conseguida la data
+				console.log(start)
 			})
-			.catch((error) => console.error(error))
-		}, [itemList, setItemList, setLoading, start, per_page]
+			.catch((error) => console.error(error)) // maneja cualquier error mientras se ejecuta useEffect
+	}, [itemList, setItemList, setLoading, start, per_page] // previene fetching innecesario, solo se recalcula cuando cambian estas dependencias
 	)
 
   return (

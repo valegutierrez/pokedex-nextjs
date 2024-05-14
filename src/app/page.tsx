@@ -1,68 +1,76 @@
 "use client"
+// useEffect solo se ejecuta en el cliente
 
 import { pokemonClient } from "@/app/utils/api";
+// importa funcion desde api.ts
 import { NamedAPIResource } from "pokenode-ts";
+// NamedAPIResource es el nombre del recurso que se va a solicitar
 import { useEffect, useState } from "react";
+// importa useEffect para definir estado sin escribir una clase
 import PokemonCard from "./components/pokemoncard";
+// importa componente pokemoncard
 import Pagination from "@/app/components/pagination";
+// importa componente pagination
 import { useSearchParams } from "next/navigation";
+// importa parametros de busqueda de NextJS
 
-const generations = [
-	{
-		generation: 1,
-		name: "Gen I",
-		genOffset: 0,
-		genEnd: 151
-	},
-	{
-		generation: 2,
-		name: "Gen II",
-		genOffset: 151,
-		genEnd: 251
-	},
-	{
-		generation: 3,
-		name: "Gen III",
-		genOffset: 251,
-		genEnd: 386
-	},
-	{
-		generation: 4,
-		name: "Gen IV",
-		genOffset: 386,
-		genEnd: 493
-	},
-	{
-		generation: 5,
-		name: "Gen V",
-		genOffset: 493,
-		genEnd: 649
-	},
-	{
-		generation: 6,
-		name: "Gen VI",
-		genOffset: 649,
-		genEnd: 721
-	},
-	{
-		generation: 7,
-		name: "Gen VII",
-		genOffset: 721,
-		genEnd: 809
-	},
-	{
-		generation: 8,
-		name: "Gen VIII",
-		genOffset: 809,
-		genEnd: 905
-	},
-	{
-		generation: 10,
-		name: "Gen IX",
-		genOffset: 251,
-		genEnd: 386
-	},
-]
+// const generations = [
+// 	{
+// 		generation: 1,
+// 		name: "Gen I",
+// 		genOffset: 0,
+// 		genEnd: 151
+// 	},
+// 	{
+// 		generation: 2,
+// 		name: "Gen II",
+// 		genOffset: 151,
+// 		genEnd: 251
+// 	},
+// 	{
+// 		generation: 3,
+// 		name: "Gen III",
+// 		genOffset: 251,
+// 		genEnd: 386
+// 	},
+// 	{
+// 		generation: 4,
+// 		name: "Gen IV",
+// 		genOffset: 386,
+// 		genEnd: 493
+// 	},
+// 	{
+// 		generation: 5,
+// 		name: "Gen V",
+// 		genOffset: 493,
+// 		genEnd: 649
+// 	},
+// 	{
+// 		generation: 6,
+// 		name: "Gen VI",
+// 		genOffset: 649,
+// 		genEnd: 721
+// 	},
+// 	{
+// 		generation: 7,
+// 		name: "Gen VII",
+// 		genOffset: 721,
+// 		genEnd: 809
+// 	},
+// 	{
+// 		generation: 8,
+// 		name: "Gen VIII",
+// 		genOffset: 809,
+// 		genEnd: 905
+// 	},
+// 	{
+// 		generation: 10,
+// 		name: "Gen IX",
+// 		genOffset: 251,
+// 		genEnd: 386
+// 	},
+// ]
+// declara un arreglo de objetos que contiene las generaciones de pokemon, para filtrado
 
 export default function Home() {
 	
@@ -72,9 +80,7 @@ export default function Home() {
 	const [pokemonList, setPokemonList] = useState<NamedAPIResource[]>([]);
 	const page = searchParams.get('page') ?? '1'; // default to 1
 	const per_page = searchParams.get('per_page') ?? '12' // default to 12 entries
-	const start = (Number(page) - 1) * Number(per_page);
-  const end = start + Number(per_page);
-	//
+	const start = (Number(page) - 1) * Number(per_page); // offset del paginado
 
 	useEffect(() => {
 		setLoading(true);

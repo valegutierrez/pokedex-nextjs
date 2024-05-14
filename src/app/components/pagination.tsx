@@ -31,7 +31,6 @@ const Pagination: FC<PaginationProps> = (
 				className='rounded bg-pink-500 text-white p-3'
 				disabled={!hasPrevPage}
 				onClick={() => {
-					console.log(currentPage);
 					router.push(`${currentPage}/?page=${Number(page) - 1}&per_page=${per_page}`)
 				}}>
 					prev page

@@ -9,7 +9,7 @@ interface CardProps {
 
 export default function Card(props: CardProps) {
 	return (
-		<div className="bg-white w-50 rounded shadow-lg grid">
+		<div className="card bg-white w-50 rounded shadow-lg grid">
 			<img className="h-40 p-6 m-auto" src={props.image} alt="A pokemon, a berry or an item" />
 			<div className="text-center">
 				<div className="capitalize font-bold text-md mb-2">{props.name}</div>
